@@ -27,7 +27,7 @@ let usersToSend = [];
 
 async function checkVisisted(id) {
   const result = await db.query(
-    "SELECT country_code FROM visited_countries WHERE user_id = $1",
+    "SELECT country_code FROM visited_countries WHERE visiter = $1",
     [id]
   );
   let countries = [];
@@ -37,7 +37,7 @@ async function checkVisisted(id) {
   return countries;
 }
 async function getUsers() {
-  const result = await db.query("SELECT * FROM users");
+  const result = await db.query("SELECT * FROM family_members");
   users = [];
   result.rows.forEach((member) => {
     users.push(member);
@@ -103,7 +103,7 @@ app.post("/add", async (req, res) => {
     const countryCode = data.country_code;
     try {
       await db.query(
-        "INSERT INTO visited_countries (country_code,user_id) VALUES ($1,$2)",
+        "INSERT INTO visited_countries (country_code,visiter) VALUES ($1,$2)",
         [countryCode, currentUserId]
       );
       res.redirect("/");
@@ -143,7 +143,7 @@ app.post("/user", async (req, res) => {
 app.post("/new", async (req, res) => {
   console.log(req.body);
   try {
-    await db.query("INSERT INTO users (name,color) VALUES ($1,$2)", [
+    await db.query("INSERT INTO family_members (name,color) VALUES ($1,$2)", [
       req.body.name,
       req.body.color,
     ]);
