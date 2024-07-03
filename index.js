@@ -37,7 +37,7 @@ async function checkVisisted(id) {
   return countries;
 }
 async function getUsers() {
-  const result = await db.query("SELECT * FROM family_members");
+  const result = await db.query("SELECT * FROM members");
   users = [];
   result.rows.forEach((member) => {
     users.push(member);
@@ -46,8 +46,6 @@ async function getUsers() {
 }
 
 async function getUsersToSend(entire, family) {
-  console.log("getUsersToSend(): entire", entire);
-  console.log("getUsersToSend(): family", family);
   let numOfUserToSend = family.length;
   let arr = [];
   for (let i = 0; i < numOfUserToSend; i++) {
@@ -74,14 +72,11 @@ app.get("/", async (req, res) => {
   if (currentUserId == undefined) currentUserId = family[0].id;
 
   if (currentUserId == -1) {
-    console.log("family send");
     usersToSend = await getUsersToSend(family, family);
   } else {
-    console.log("singel send: ", currentUserId);
     let tempFam = [family.find((mem) => mem.id == currentUserId)];
     usersToSend = await getUsersToSend(family, tempFam);
   }
-  console.log(usersToSend);
   res.render("index.ejs", {
     users: usersToSend,
   });
@@ -129,7 +124,6 @@ app.post("/add", async (req, res) => {
   }
 });
 app.post("/user", async (req, res) => {
-  console.log("in user: ", req.body.user);
   if (req.body.add) res.render("new.ejs", { header: "Add a Family Member" });
   else if (req.body.user == "all") {
     currentUserId = -1;
@@ -141,9 +135,8 @@ app.post("/user", async (req, res) => {
 });
 
 app.post("/new", async (req, res) => {
-  console.log(req.body);
   try {
-    await db.query("INSERT INTO family_members (name,color) VALUES ($1,$2)", [
+    await db.query("INSERT INTO members (name,color) VALUES ($1,$2)", [
       req.body.name,
       req.body.color,
     ]);
