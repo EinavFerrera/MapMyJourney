@@ -36,7 +36,7 @@ An interactive web application for tracking the countries visited by you, your f
 - **Frontend:** EJS templates, HTML, CSS
 - **Backend:** Node.js, Express.js
 - **Database:** PostgreSQL
-- **Development Tools:** VsCode, Firebase
+- **Development Tools:** VsCode
 
 ## Features
 
@@ -73,7 +73,8 @@ Follow these instructions to set up and run the project locally.
 
    - Ensure PostgreSQL is installed and running locally.
    - Create a PostgreSQL database and user.
-   - Update the database connection details in the code (e.g., user, host, database, password, port).
+   - Update the database connection details in the "..env" file (e.g., user, host, database, password, port).
+   - Rename the "..env" file to ".env"
 
 4. **Run the application:**
 
