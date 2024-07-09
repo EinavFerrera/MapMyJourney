@@ -21,11 +21,18 @@
       </label>
       <% }); %>
       <input type="submit" name="user" value="all" id="all" />
-      <label for="all" style="background-color: #21252b; color: azure"
-        >Family</label
+      <label
+        for="all"
+        style="
+          background-color: #21252b;
+          color: azure;
+          border: 1px solid azure;
+          margin: 1px;
+        "
+        >ALL🌐</label
       >
       <input type="submit" name="add" value="new" id="new" />
-      <label for="new">Add Family Member</label>
+      <label for="new">Add Member➕</label>
     </form>
 
     <form action="/add" method="post">
@@ -34,6 +41,10 @@
         name="country"
         autofocus
         placeholder="<%= locals.error ? error :  'Enter country name' %>"
+        <%if(users.length>1){%>
+          style="margin-bottom: 5rem" 
+         <%} %>
+        
       />
       <%if(users.length == 1){%>
       <button type="submit" style="background-color: <%=users[0].color%>">

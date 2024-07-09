@@ -66,9 +66,6 @@ async function getUsersToSend(entire, family) {
 
 app.get("/", async (req, res) => {
   usersToSend = [];
-  if (welcomePage) {
-    return res.redirect("/welcome");
-  }
   const family = await getUsers();
 
   if (welcomePage && !family[0]) {
