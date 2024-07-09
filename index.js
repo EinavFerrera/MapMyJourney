@@ -1,16 +1,18 @@
 import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
+import env from "dotenv";
 
 const app = express();
 const port = 3000;
 
+env.configDotenv();
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "postgres",
-  password: "4123",
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 db.connect();
 
@@ -64,6 +66,9 @@ async function getUsersToSend(entire, family) {
 
 app.get("/", async (req, res) => {
   usersToSend = [];
+  if (welcomePage) {
+    return res.redirect("/welcome");
+  }
   const family = await getUsers();
 
   if (welcomePage && !family[0]) {

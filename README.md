@@ -59,8 +59,8 @@ Follow these instructions to set up and run the project locally.
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/travel-tracker.git
-   cd travel-tracker
+   git clone https://github.com/EinavFerrera/MapMyJourney.git
+   cd MapMyJourney
    ```
 
 2. **Install dependencies:**
