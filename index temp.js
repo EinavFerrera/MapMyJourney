@@ -2,19 +2,30 @@ import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 import env from "dotenv";
+import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
+import {
+  getFirestore,
+  Timestamp,
+  FieldValue,
+  Filter,
+} from "firebase-admin/firestore";
+
+initializeApp();
+
+const db = getFirestore();
 
 const app = express();
 const port = 3000;
 
-env.configDotenv();
-const db = new pg.Client({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-});
-db.connect();
+// env.configDotenv();
+// const db = new pg.Client({
+//   user: process.env.DB_USER,
+//   host: process.env.DB_HOST,
+//   database: process.env.DB_NAME,
+//   password: process.env.DB_PASSWORD,
+//   port: process.env.DB_PORT,
+// });
+// db.connect();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
